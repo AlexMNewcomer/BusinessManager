@@ -35,6 +35,26 @@ app.get('/api/employees', (req, res) => {
     });
 });
 
+//Read all departments
+app.get('/api/departments', (req, res) => {
+    pool.query('SELECT * FROM departments', (error, results) => {
+        if (error) {
+            throw error;
+        }
+        res.status(200).json(results.rows);
+    });
+});
+
+//Read all roles
+app.get('/api/roles', (req, res) => {
+    pool.query('SELECT * FROM roles', (error, results) => {
+        if (error) {
+            throw error;
+        }
+        res.status(200).json(results.rows);
+    });
+});
+
 //Read employees by department
 app.get('/api/employees/:department', (req, res) => {
     const department = req.params.department;
