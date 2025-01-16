@@ -1,7 +1,29 @@
 import express from 'express';
-import { queryResult } from 'pg';
-import { pool, connectToDb } from './connections.js';
+import { QueryResult } from 'pg';
+import { pool } from './connections.js';
+import { Pool } from 'pg';
 
+
+
+const pool = new Pool({
+    user: process.env.DB_USER,
+    host: 'localhost',
+    database: process.env.DB_NAME,
+    password: process.env.DB_PASS,
+    port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 5432) : undefined,
+});
+
+const connectToDb = async () => {
+
+    try {
+      await pool.connect();
+      console.log('Connected to the database');
+    } catch (error) {
+      console.error('Database connection error', error);
+    }
+};
+
+export { pool, connectToDb };
 await connectToDb();
 
 const PORT = process.env.PORT || 3001;

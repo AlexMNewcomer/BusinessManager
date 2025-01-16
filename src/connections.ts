@@ -9,5 +9,5 @@ const pool = new Pool({
   host: 'localhost',
   database: process.env.DB_NAME,
   password: process.env.DB_PASS,
-  port: process.env.DB_PORT,
+  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : undefined,
 });
